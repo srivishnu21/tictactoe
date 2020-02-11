@@ -3,7 +3,7 @@ import java.util.Objects;
 
 public class GameMatrix {
 
-    private GameObject[][] gameMatrix;
+    private GameObject[][] cells;
     private GameObject gameObjectX;
     private GameObject gameObjectO;
     private int matrixSize = 2;
@@ -11,17 +11,17 @@ public class GameMatrix {
     public GameMatrix(GameObject gameObjectX, GameObject gameObjectO) {
         this.gameObjectX = gameObjectX;
         this.gameObjectO = gameObjectO;
-        gameMatrix = new GameObject[3][3];
+        cells = new GameObject[matrixSize + 1][matrixSize + 1];
     }
 
     public void putValue(int row, int column, GameObject gameObjectToPut) throws InstanceAlreadyExistsException, ArrayIndexOutOfBoundsException {
         if (row > matrixSize && column > matrixSize) {
             throw new ArrayIndexOutOfBoundsException();
         }
-        if (gameMatrix[row][column] != null) {
+        if (cells[row][column] != null) {
             throw new InstanceAlreadyExistsException();
         }
-        gameMatrix[row][column] = gameObjectToPut;
+        cells[row][column] = gameObjectToPut;
     }
 
     public boolean checkForAStrike(int row, int column, GameObject gameObjectToCheck) {
@@ -33,7 +33,7 @@ public class GameMatrix {
 
     private boolean checkStrikeInARow(int row, GameObject gameObjectToCheck) {
         for (int index = 0; index <= matrixSize; index++) {
-            if (!gameMatrix[row][index].equals(gameObjectToCheck)) {
+            if (!cells[row][index].equals(gameObjectToCheck)) {
                 return false;
             }
         }
