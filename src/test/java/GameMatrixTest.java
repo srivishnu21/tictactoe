@@ -67,4 +67,30 @@ class GameMatrixTest {
 
         assertFalse(gameMatrix.checkForAStrike(0, 2, gameObjectO));
     }
+
+    @Test
+    void shouldReturnTrueForAStrikeWhenXStrikesInAColumn() throws InstanceAlreadyExistsException, ArrayIndexOutOfBoundsException {
+        GameObject gameObjectX = new GameObject('X');
+        GameObject gameObjectO = new GameObject('O');
+        GameMatrix gameMatrix = new GameMatrix(gameObjectX, gameObjectO);
+
+        gameMatrix.putValue(2, 1, gameObjectX);
+        gameMatrix.putValue(0, 1, gameObjectX);
+        gameMatrix.putValue(1, 1, gameObjectX);
+
+        assertTrue(gameMatrix.checkForAStrike(1, 1, gameObjectX));
+    }
+
+    @Test
+    void shouldReturnFalseForAStrikeWhenXStrikesInAColumn() throws InstanceAlreadyExistsException, ArrayIndexOutOfBoundsException {
+        GameObject gameObjectX = new GameObject('X');
+        GameObject gameObjectO = new GameObject('O');
+        GameMatrix gameMatrix = new GameMatrix(gameObjectX, gameObjectO);
+
+        gameMatrix.putValue(0, 1, gameObjectX);
+        gameMatrix.putValue(1, 1, gameObjectX);
+        gameMatrix.putValue(2, 1, gameObjectO);
+
+        assertFalse(gameMatrix.checkForAStrike(2, 1, gameObjectO));
+    }
 }

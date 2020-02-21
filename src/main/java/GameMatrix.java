@@ -27,14 +27,28 @@ public class GameMatrix {
     public boolean checkForAStrike(int row, int column, GameObject gameObjectToCheck) {
         if (checkStrikeInARow(row, gameObjectToCheck)) {
             return true;
+        } else if (checkStrikeInaColumn(column, gameObjectToCheck)) {
+            return true;
         }
         return false;
     }
 
+    private boolean checkStrikeInaColumn(int column, GameObject gameObjectToCheck) {
+        for (int index = 0; index <= matrixSize; index++) {
+            if (gameObjectToCheck.equals(null)){
+                if (!cells[index][column].equals(gameObjectToCheck))
+                    return false;
+            }
+        }
+        return true;
+    }
+
     private boolean checkStrikeInARow(int row, GameObject gameObjectToCheck) {
         for (int index = 0; index <= matrixSize; index++) {
-            if (!cells[row][index].equals(gameObjectToCheck)) {
-                return false;
+            System.out.println(row+" "+index);
+            if (gameObjectToCheck.equals(null)) {
+                if (!cells[row][index].equals(gameObjectToCheck))
+                    return false;
             }
         }
         return true;
